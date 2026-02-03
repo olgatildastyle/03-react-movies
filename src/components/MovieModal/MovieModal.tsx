@@ -1,32 +1,30 @@
-import { useEffect } from "react";
-import { createPortal } from "react-dom";
-import styles from "./MovieModal.module.css";
-import type { Movie } from "../../types/movie";
+import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import styles from './MovieModal.module.css';
+import type { Movie } from '../../types/movie';
 
 interface MovieModalProps {
   movie: Movie;
   onClose: () => void;
 }
-const modalRoot = document.getElementById("modal-root") as HTMLElement;
+const modalRoot = document.getElementById('modal-root') as HTMLElement;
 export default function MovieModal({ movie, onClose }: MovieModalProps) {
-  // 🔒 Закриття по ESC + блокування скролу
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         onClose();
       }
     };
 
-    document.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
     };
   }, [onClose]);
 
-  // 🖱 Закриття по кліку на бекдроп
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       onClose();
@@ -67,6 +65,6 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
         </div>
       </div>
     </div>,
-    modalRoot,
+    modalRoot
   );
 }
